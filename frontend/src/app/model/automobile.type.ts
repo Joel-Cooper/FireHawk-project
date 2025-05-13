@@ -6,6 +6,6 @@ export type Automobile = {
     horsepower: number;
     weight: number;
     acceleration: number;
-    modelYear: number
+    model_year: number
     origin: string
 }

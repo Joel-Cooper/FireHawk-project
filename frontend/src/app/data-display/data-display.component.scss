@@ -1,0 +1,18 @@
+.data-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.data__item .grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.data__item.header .grid {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}

@@ -1,5 +1,21 @@
-<h3>Data Display</h3>
+<h3>Automobiles</h3>
 
-@for (automobile of automobileItems(); track $index) {
-    <app-data-item [automobile]="automobile"/>
-}
+<ul class="data-list">
+  <li class="data__item header">
+    <div class="grid">
+      <div>Name</div>
+      <div>MPG</div>
+      <div>Cylinders</div>
+      <div>Displacement</div>
+      <div>Horsepower</div>
+      <div>Weight</div>
+      <div>Acceleration</div>
+      <div>Model Year</div>
+      <div>Origin</div>
+    </div>
+  </li>
+
+    @for (automobile of automobileItems(); track $index) {
+        <app-data-item [automobile]="automobile"/>
+    }
+</ul>
