@@ -10,7 +10,7 @@
     />
 
     <label >Sort By: </label>
-    <select name="sort-dropdown" id="sort-dropdown">
+    <select [(ngModel)]="sortField" name="sort-dropdown" id="sort-dropdown">
       <option value="name">Name</option>
       <option value="mpg">MPG</option>
       <option value="cylinders">Cylinders</option>
@@ -23,7 +23,7 @@
     </select>
 
     <label>Order: </label>
-    <select name="sort-order" id="sort-order">
+    <select [(ngModel)]="sortOrder" name="sort-order" id="sort-order">
       <option value="ascending">Ascending</option>
       <option value="descending">Descending</option>
     </select>
@@ -46,7 +46,11 @@
     </div>
   </li>
 
-    @for (automobile of automobileItems() | filterAutomobiles : searchTerm(); track $index) {
-        <app-data-item [automobile]="automobile"/>
+    @for (automobile of (
+      automobileItems()
+      | filterAutomobiles: searchTerm()
+      | sortAutomobiles: sortField():sortOrder()
+    ); track $index) {
+      <app-data-item [automobile]="automobile" />
     }
 </ul>
