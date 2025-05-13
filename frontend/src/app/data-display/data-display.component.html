@@ -1,2 +1,5 @@
 <h3>Data Display</h3>
 
+@for (automobile of automobileItems(); track $index) {
+    <app-data-item [automobile]="automobile"/>
+}

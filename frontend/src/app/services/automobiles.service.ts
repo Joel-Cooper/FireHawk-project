@@ -9,7 +9,7 @@ export class AutomobilesService {
   http = inject(HttpClient);
   
   getAutomobilesFromApi() {
-    const url = 'http//:localhost:8080/automobiles';
-    return this.http.get<Array<Automobile>>(url);
+    const url = 'http://localhost:8080/automobiles';
+    return this.http.get<{ data: Array<Automobile> }>(url);
   }
 }

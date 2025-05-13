@@ -1,9 +1,9 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import fs from 'fs/promises';
+import cors from 'cors';
 import { readLocalDataset } from './dataProcessor.js'; 
 
-// Load Firebase credentials
 const credentials = JSON.parse(
     await fs.readFile('./key.json', 'utf-8')
 );
@@ -13,13 +13,13 @@ admin.initializeApp({
 });
 
 const app = express();
-const PORT = process.env.PORT || 8080;
-const db = admin.firestore();
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Start server
+const PORT = process.env.PORT || 8080;
+const db = admin.firestore();
+
 app.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
 });
@@ -44,7 +44,7 @@ app.listen(PORT, () => {
 
 // Function to upload data to Firestore
 async function uploadDataToFirestore(dataArray) {
-  const collectionRef = db.collection('automobiles'); // replace with your collection name
+  const collectionRef = db.collection('automobiles');
 
   for (const item of dataArray) {
     await collectionRef.add(item);
