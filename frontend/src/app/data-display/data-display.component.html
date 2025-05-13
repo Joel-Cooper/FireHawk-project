@@ -1,24 +1,34 @@
 <h3>Automobiles</h3>
 
 <div id="filters">
-  <label for="sort-dropdown">Sort By: </label>
-  <select name="sort-dropdown" id="sort-dropdown">
-    <option value="name">Name</option>
-    <option value="mpg">MPG</option>
-    <option value="cylinders">Cylinders</option>
-    <option value="displacement">Displacement</option>
-    <option value="horsepower">Horsepower</option>
-    <option value="weight">Weight</option>
-    <option value="acceleration">Acceleration</option>
-    <option value="model_year">Model Year</option>
-    <option value="origin">Origin</option>
-  </select>
+  <form>
+    <label>Filter automobiles:</label>
+    <input 
+      name="searchTerm"
+      [(ngModel)]="searchTerm"
+      placeholder="Search automobiles"
+    />
 
-  <label for="sort-order">Order: </label>
-  <select name="sort-order" id="sort-order">
-    <option value="ascending">Ascending</option>
-    <option value="descending">Descending</option>
-  </select>
+    <label >Sort By: </label>
+    <select name="sort-dropdown" id="sort-dropdown">
+      <option value="name">Name</option>
+      <option value="mpg">MPG</option>
+      <option value="cylinders">Cylinders</option>
+      <option value="displacement">Displacement</option>
+      <option value="horsepower">Horsepower</option>
+      <option value="weight">Weight</option>
+      <option value="acceleration">Acceleration</option>
+      <option value="model_year">Model Year</option>
+      <option value="origin">Origin</option>
+    </select>
+
+    <label>Order: </label>
+    <select name="sort-order" id="sort-order">
+      <option value="ascending">Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
+
+  </form>
 </div>
 
 <ul class="data-list">
@@ -36,7 +46,7 @@
     </div>
   </li>
 
-    @for (automobile of automobileItems(); track $index) {
+    @for (automobile of automobileItems() | filterAutomobiles : searchTerm(); track $index) {
         <app-data-item [automobile]="automobile"/>
     }
 </ul>

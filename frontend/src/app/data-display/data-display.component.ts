@@ -3,16 +3,19 @@ import { DataItemComponent } from '../components/data-item/data-item.component';
 import { AutomobilesService } from '../services/automobiles.service';
 import { Automobile } from '../model/automobile.type';
 import { catchError } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { FilterAutomobilesPipe } from '../pipes/filter-automobiles.pipe';
 
 @Component({
   selector: 'app-data-display',
-  imports: [DataItemComponent],
+  imports: [DataItemComponent, FormsModule, FilterAutomobilesPipe],
   templateUrl: './data-display.component.html',
   styleUrl: './data-display.component.scss'
 })
 export class DataDisplayComponent {
   automobileService = inject(AutomobilesService);
   automobileItems = signal<Array<Automobile>>([]);
+  searchTerm = signal('');
 
   ngOnInit(): void {
     this.automobileService.getAutomobilesFromApi()
