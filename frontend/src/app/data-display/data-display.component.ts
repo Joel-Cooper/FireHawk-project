@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { DataItemComponent } from '../components/data-item/data-item.component';
 import { AutomobilesService } from '../services/automobiles.service';
 import { Automobile } from '../model/automobile.type';
@@ -26,7 +26,24 @@ export class DataDisplayComponent {
   sortField = signal<keyof Automobile>('name');
   sortOrder = signal(<'ascending' | 'descending'>('ascending'));
 
+
+  persistFilters = effect(() => {
+    localStorage.setItem('searchTerm', this.searchTerm());
+    localStorage.setItem('sortField', this.sortField());
+    localStorage.setItem('sortOrder', this.sortOrder());
+  })
+
+
   ngOnInit(): void {
+    // Restore filters
+    const savedSearch = localStorage.getItem('searchTerm');
+    const savedSortField = localStorage.getItem('sortField');
+    const savedSortOrder = localStorage.getItem('sortOrder');
+
+    if (savedSearch !== null) this.searchTerm.set(savedSearch);
+    if (savedSortField !== null) this.sortField.set(savedSortField as keyof Automobile);
+    if (savedSortOrder !== null) this.sortOrder.set(savedSortOrder as 'ascending' | 'descending');
+
     this.automobileService.getAutomobilesFromApi()
     .pipe(
       catchError((err) => {
